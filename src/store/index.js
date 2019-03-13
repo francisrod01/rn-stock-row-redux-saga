@@ -1,4 +1,9 @@
 import { createStore, applyMiddleware } from "redux";
+import {
+  offlineMiddleware,
+  suspendSaga,
+  consumeActionMiddleware
+} from "redux-offline-queue";
 import createSagaMiddleware from "redux-saga";
 
 import rootReducer from "./reducers";
@@ -8,7 +13,9 @@ const middlewares = [];
 
 const sagaMiddleware = createSagaMiddleware();
 
-middlewares.push(sagaMiddleware);
+middlewares.push(offlineMiddleware());
+middlewares.push(suspendSaga(sagaMiddleware));
+middlewares.push(consumeActionMiddleware());
 
 const createAppropriateStore = __DEV__ ? console.tron.createStore : createStore;
 

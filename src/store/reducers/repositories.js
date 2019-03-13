@@ -1,5 +1,6 @@
 import { createReducer, createActions } from "reduxsauce";
 import Immutable from "seamless-immutable";
+import { markActionsOffline } from "redux-offline-queue";
 
 
 /* Types & Action Creators */
@@ -8,6 +9,8 @@ const { Types, Creators } = createActions({
   addRepositoryRequest: ["repositoryName"],
   addRepositorySuccess: ["repository"]
 });
+
+markActionsOffline(Creators, ["addRepositoryRequest"]);
 
 export const RepositoriesTypes = Types;
 export default Creators;
